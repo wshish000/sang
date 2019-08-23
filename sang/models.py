@@ -76,7 +76,6 @@ class User(UserMixin, db.Model):
     comments = db.relationship('Comment', backref='author', lazy='dynamic')
 
 
-    @staticmethod
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
         if self.role is None:

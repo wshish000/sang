@@ -9,6 +9,7 @@ class Config:
     SQLALCHEMY_RECORD_QUERIES = True
     SANG_POSTS_PER_PAGE = 20
     SANG_SLOW_DB_QUERY_TIME = 0.5
+    SANG_COMMENTS_PER_PAGE = 30
 
     @staticmethod
     def init_app(app):

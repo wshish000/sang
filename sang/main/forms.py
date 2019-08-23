@@ -5,7 +5,11 @@ from ..models import Role, User
 from wtforms import ValidationError
 
 class PostForm(FlaskForm):
-    body = TextAreaField('Sang', validators=[DataRequired()])
+    body = TextAreaField("What's on your mind", validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+class CommentForm(FlaskForm):
+    body = StringField('Enter your comment', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 class EditProfileAdminForm(FlaskForm):
