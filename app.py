@@ -1,12 +1,21 @@
-from flask import Flask
+import os
+from sang import create_app, db
+from flask_migrate import Migrate
+from sang.models import User, Role, Permission, Post, Comment
 
-app = Flask(__name__)
+app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+migrate = Migrate(app, db)
+print(migrate)
 
 
-@app.route('/')
-def hello_world():
-    return 'Hello World!'
+@app.shell_context_processor
+def make_shell_context():
+    return dict(db=db, User=User, Role=Role, Permission=Permission, Post=Post, Comment=Comment)
 
 
-if __name__ == '__main__':
-    app.run()
+@app.cli.command()
+def test():
+    """Run the unit tests."""
+    import unittest
+    tests = unittest.TestLoader().discover('tests')
+    unittest.TextTestRunner(verbosity=2).run(tests)
